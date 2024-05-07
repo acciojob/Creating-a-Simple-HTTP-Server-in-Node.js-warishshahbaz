@@ -3,6 +3,18 @@ const port = 3000;
 
 const server = http.createServer((req, res) => {
   // TODO: Send the ""Hello, world!"" response
+
+  if (req.method === "POST") {
+    let body = "";
+    req.on("data", (data) => {
+      body += data.toString();
+    });
+
+    req.on("end", () => {
+      const dateOfBody = JSON.parse(body);
+      console.log(dateOfBody);
+    });
+  }
   res.writeHead(200, { "Content-Type": "text/plain" });
   // Send "Hello, world!" as the response
   res.end("Hello, world!\n");
